@@ -7,6 +7,8 @@ use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\ProfesorController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HorarioController;
+use App\Http\Controllers\MatriculaController;
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,7 +21,14 @@ Route::get('/', function () {
 Route::get('/alumnos', [AlumnoController::class, 'index'])->name('alumnos.index');
 Route::get('/cursos', [CursoController::class, 'index'])->name('cursos.index');
 Route::get('/profesores', [ProfesorController::class, 'index'])->name('profesores.index');
+Route::get('/horarios', [HorarioController::class, 'index'])->name('horarios.index');
+Route::get('/matriculas', [MatriculaController::class, 'index'])->name('matriculas.index');
 
+Route::get('login/github',
+[App\Http\Controllers\Auth\LoginController::class, 'redirectToGithub']);
+
+Route::get('login/github/callback',
+[App\Http\Controllers\Auth\LoginController::class, 'handleGithubCallback']);
 
 Auth::routes();
 

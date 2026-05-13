@@ -108,6 +108,12 @@
                                 Continue with Google
                             </a>
                         </div>
+                        <div class="d-grid mb-3">
+                            <a href="{{ url('login/github') }}"
+                            class="btn btn-dark rounded-3 fw-semibold py-2">
+                                Continue with GitHub
+                            </a>
+                        </div>
                         {{-- FORGOT PASSWORD --}}
                         @if (Route::has('password.request'))
                             <div class="text-center">

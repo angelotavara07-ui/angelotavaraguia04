@@ -6,7 +6,7 @@
 
     .container{
         padding:40px;
-        max-width:1100px;
+        max-width:1450px;
         margin:auto;
     }
 
@@ -87,16 +87,38 @@
         gap:10px;
     }
 
+    .estado{
+        padding:6px 10px;
+        border-radius:8px;
+        font-size:12px;
+        font-weight:bold;
+    }
+
+    .aprobado{
+        background:#14532d;
+        color:#86efac;
+    }
+
+    .reprobado{
+        background:#7f1d1d;
+        color:#fca5a5;
+    }
+
+    .cursando{
+        background:#78350f;
+        color:#fde68a;
+    }
+
 </style>
 
 <div class="container">
 
     <div class="top-actions">
 
-        <h1>Tabla de Profesores</h1>
+        <h1>Tabla de Matrículas</h1>
 
         <a href="#" class="btn btn-add">
-            + Agregar Profesor
+            + Agregar Matrícula
         </a>
 
     </div>
@@ -107,9 +129,14 @@
 
             <tr>
                 <th>ID</th>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-                <th>Especialidad</th>
+                <th>Alumno</th>
+                <th>Curso</th>
+                <th>Profesor</th>
+                <th>Horario</th>
+                <th>Semestre</th>
+                <th>Fecha</th>
+                <th>Nota</th>
+                <th>Estado</th>
                 <th>Acciones</th>
             </tr>
 
@@ -117,24 +144,54 @@
 
         <tbody>
 
-            @forelse($profesores as $profesor)
+            @forelse($matriculas as $matricula)
 
                 <tr>
 
                     <td>
-                        {{ $profesor->id }}
+                        {{ $matricula->id_matricula }}
                     </td>
 
                     <td>
-                        {{ $profesor->nombre }}
+                        {{ $matricula->alumno->nombre ?? 'Sin alumno' }}
+                        {{ $matricula->alumno->apellidos ?? '' }}
                     </td>
 
                     <td>
-                        {{ $profesor->apellidos }}
+                        {{ $matricula->curso->nombre_curso ?? 'Sin curso' }}
                     </td>
 
                     <td>
-                        {{ $profesor->especialidad }}
+                        {{ $matricula->profesor?->nombre }}
+                        {{ $matricula->profesor?->apellidos }}
+                    </td>
+
+                    <td>
+                        {{ $matricula->horario?->dia_semana ?? 'Sin horario' }}
+                        @if($matricula->horario)
+                            -
+                            {{ \Carbon\Carbon::parse($matricula->horario->hora_inicio)->format('H:i') }}
+                        @endif
+                    </td>
+
+                    <td>
+                        {{ $matricula->semestre }}
+                    </td>
+
+                    <td>
+                        {{ \Carbon\Carbon::parse($matricula->fecha_matricula)->format('d/m/Y') }}
+                    </td>
+
+                    <td>
+                        {{ $matricula->nota_final ?? 'Sin nota' }}
+                    </td>
+
+                    <td>
+
+                        <span class="estado {{ $matricula->estado_matricula }}">
+                            {{ ucfirst($matricula->estado_matricula) }}
+                        </span>
+
                     </td>
 
                     <td class="actions">
@@ -162,8 +219,8 @@
 
                 <tr>
 
-                    <td colspan="5">
-                        No hay profesores registrados
+                    <td colspan="10">
+                        No hay matrículas registradas
                     </td>
 
                 </tr>

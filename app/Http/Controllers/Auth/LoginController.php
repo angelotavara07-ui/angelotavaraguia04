@@ -42,7 +42,27 @@ class LoginController extends Controller
 
     return redirect('/home');
 }
+    public function redirectToGithub()
+{
+    return Socialite::driver('github')->redirect();
+}
 
+        public function handleGithubCallback()
+    {
+        $githubUser = Socialite::driver('github')->stateless()->user();
+
+        $user = User::firstOrCreate(
+            ['email' => $githubUser->email],
+            [
+                'name' => $githubUser->name ?? $githubUser->nickname,
+                'password' => bcrypt(uniqid())
+            ]
+        );
+
+        Auth::login($user);
+
+        return redirect('/home');
+    }
     public function authenticated(Request $request, $user)
     {
         $device = $request->header('User-Agent');
@@ -51,4 +71,5 @@ class LoginController extends Controller
             'device' => $device
         ]);
     }
+
 }

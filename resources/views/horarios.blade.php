@@ -6,7 +6,7 @@
 
     .container{
         padding:40px;
-        max-width:1100px;
+        max-width:1200px;
         margin:auto;
     }
 
@@ -78,8 +78,8 @@
     }
 
     td{
-        color:#ddd;
         font-size:14px;
+        color:#ddd;
     }
 
     .actions{
@@ -93,10 +93,10 @@
 
     <div class="top-actions">
 
-        <h1>Tabla de Profesores</h1>
+        <h1>Tabla de Horarios</h1>
 
         <a href="#" class="btn btn-add">
-            + Agregar Profesor
+            + Agregar Horario
         </a>
 
     </div>
@@ -107,9 +107,10 @@
 
             <tr>
                 <th>ID</th>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-                <th>Especialidad</th>
+                <th>Curso</th>
+                <th>Día</th>
+                <th>Hora Inicio</th>
+                <th>Hora Fin</th>
                 <th>Acciones</th>
             </tr>
 
@@ -117,24 +118,28 @@
 
         <tbody>
 
-            @forelse($profesores as $profesor)
+            @forelse($horarios as $horario)
 
                 <tr>
 
                     <td>
-                        {{ $profesor->id }}
+                        {{ $horario->id_horario }}
                     </td>
 
                     <td>
-                        {{ $profesor->nombre }}
+                        {{ $horario->curso->nombre_curso ?? 'Sin curso' }}
                     </td>
 
                     <td>
-                        {{ $profesor->apellidos }}
+                        {{ $horario->dia_semana }}
                     </td>
 
                     <td>
-                        {{ $profesor->especialidad }}
+                        {{ \Carbon\Carbon::parse($horario->hora_inicio)->format('H:i') }}
+                    </td>
+
+                    <td>
+                        {{ \Carbon\Carbon::parse($horario->hora_fin)->format('H:i') }}
                     </td>
 
                     <td class="actions">
@@ -162,8 +167,8 @@
 
                 <tr>
 
-                    <td colspan="5">
-                        No hay profesores registrados
+                    <td colspan="6">
+                        No hay horarios registrados
                     </td>
 
                 </tr>
