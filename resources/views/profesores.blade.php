@@ -95,7 +95,7 @@
 
         <h1>Tabla de Profesores</h1>
 
-        <a href="#" class="btn btn-add">
+        <a href="{{ route('profesores.create') }}" class="btn btn-add">
             + Agregar Profesor
         </a>
 
@@ -139,11 +139,11 @@
 
                     <td class="actions">
 
-                        <a href="#" class="btn btn-edit">
+                        <a href="{{ route('profesores.edit', $profesor->id) }}" class="btn btn-edit">
                             Editar
                         </a>
 
-                        <form action="#" method="POST">
+                        <form action="{{ route('profesores.destroy', $profesor->id) }}" method="POST">
 
                             @csrf
                             @method('DELETE')

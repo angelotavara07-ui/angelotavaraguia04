@@ -117,7 +117,7 @@
 
         <h1>Tabla de Matrículas</h1>
 
-        <a href="#" class="btn btn-add">
+        <a href="{{ route('matriculas.create') }}" class="btn btn-add">
             + Agregar Matrícula
         </a>
 
@@ -196,11 +196,11 @@
 
                     <td class="actions">
 
-                        <a href="#" class="btn btn-edit">
+                        <a href="{{ route('matriculas.edit', $matricula->id_matricula) }}" class="btn btn-edit">
                             Editar
                         </a>
 
-                        <form action="#" method="POST">
+                        <form action="{{ route('matriculas.destroy', $matricula->id_matricula) }}" method="POST">
 
                             @csrf
                             @method('DELETE')

@@ -6,7 +6,7 @@
 
     .container{
         padding:40px;
-        max-width:1200px;
+        max-width:1400px;
         margin:auto;
     }
 
@@ -47,36 +47,46 @@
         color:black;
     }
 
+    .btn-edit:hover{
+        opacity:.9;
+    }
+
     .btn-delete{
         background:#dc2626;
         color:white;
     }
 
+    .btn-delete:hover{
+        background:#ef4444;
+    }
+
     table{
         width:100%;
         border-collapse:collapse;
-        background:#1e293b;
-        border-radius:12px;
+        background:#181818;
+        border-radius:16px;
         overflow:hidden;
     }
 
     th, td{
-        padding:14px;
+        padding:16px;
         text-align:left;
     }
 
     th{
-        background:#0f172a;
+        background:#222;
         color:#cbd5e1;
         font-size:14px;
+        font-weight:600;
     }
 
     tr{
         border-bottom:1px solid rgba(255,255,255,0.05);
+        transition:.2s;
     }
 
     tr:hover{
-        background:#334155;
+        background:#222;
     }
 
     td{
@@ -90,7 +100,7 @@
     }
 
     .badge{
-        padding:5px 10px;
+        padding:6px 12px;
         border-radius:8px;
         font-size:12px;
         font-weight:bold;
@@ -98,13 +108,13 @@
     }
 
     .activo{
-        background:#16a34a;
-        color:white;
+        background:#14532d;
+        color:#86efac;
     }
 
     .inactivo{
-        background:#6b7280;
-        color:white;
+        background:#7f1d1d;
+        color:#fca5a5;
     }
 
 </style>
@@ -115,7 +125,7 @@
 
         <h1>Tabla de Alumnos</h1>
 
-        <a href="#" class="btn btn-add">
+        <a href="{{ route('alumnos.create') }}" class="btn btn-add">
             + Agregar Alumno
         </a>
 
@@ -146,18 +156,26 @@
                 <tr>
 
                     <td>{{ $alumno->id }}</td>
+
                     <td>{{ $alumno->nombre }}</td>
+
                     <td>{{ $alumno->apellidos }}</td>
-                    <td>{{ $alumno->fecha_nacimiento }}</td>
+
+                    <td>
+                        {{ \Carbon\Carbon::parse($alumno->fecha_nacimiento)->format('d/m/Y') }}
+                    </td>
+
                     <td>{{ $alumno->dni }}</td>
+
                     <td>{{ $alumno->telefono }}</td>
+
                     <td>{{ $alumno->email }}</td>
 
                     <td>
 
                         <span class="badge {{ $alumno->estado_matricula == 'matriculado' ? 'activo' : 'inactivo' }}">
 
-                            {{ $alumno->estado_matricula }}
+                            {{ ucfirst($alumno->estado_matricula) }}
 
                         </span>
 
@@ -165,11 +183,15 @@
 
                     <td class="actions">
 
-                        <a href="#" class="btn btn-edit">
+                        <a href="{{ route('alumnos.edit', $alumno->id) }}"
+                           class="btn btn-edit">
+
                             Editar
+
                         </a>
 
-                        <form action="#" method="POST">
+                        <form action="{{ route('alumnos.destroy', $alumno->id) }}"
+                              method="POST">
 
                             @csrf
                             @method('DELETE')

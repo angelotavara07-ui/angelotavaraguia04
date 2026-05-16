@@ -95,7 +95,7 @@
 
         <h1>Tabla de Horarios</h1>
 
-        <a href="#" class="btn btn-add">
+        <a href="{{ route('horarios.create') }}" class="btn btn-add">
             + Agregar Horario
         </a>
 
@@ -144,11 +144,11 @@
 
                     <td class="actions">
 
-                        <a href="#" class="btn btn-edit">
+                        <a href="{{ route('horarios.edit', $horario->id_horario) }}" class="btn btn-edit">
                             Editar
                         </a>
 
-                        <form action="#" method="POST">
+                        <form action="{{ route('horarios.destroy', $horario->id_horario) }}" method="POST">
 
                             @csrf
                             @method('DELETE')

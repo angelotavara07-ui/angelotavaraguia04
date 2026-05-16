@@ -6,6 +6,8 @@
 
     .container{
         padding:40px;
+        max-width:1400px;
+        margin:auto;
     }
 
     h1{
@@ -28,6 +30,7 @@
         transition:0.3s;
         border:none;
         cursor:pointer;
+        font-weight:600;
     }
 
     .btn-add{
@@ -44,39 +47,51 @@
         color:black;
     }
 
+    .btn-edit:hover{
+        opacity:.9;
+    }
+
     .btn-delete{
         background:#dc2626;
         color:white;
     }
 
+    .btn-delete:hover{
+        background:#ef4444;
+    }
+
     table{
         width:100%;
         border-collapse:collapse;
-        background:#1e293b;
-        border-radius:12px;
+        background:#181818;
+        border-radius:16px;
         overflow:hidden;
     }
 
     th, td{
-        padding:14px;
+        padding:16px;
         text-align:left;
     }
 
     th{
-        background:#0f172a;
+        background:#222;
         color:#cbd5e1;
+        font-size:14px;
+        font-weight:600;
     }
 
     tr{
         border-bottom:1px solid rgba(255,255,255,0.05);
+        transition:.2s;
     }
 
     tr:hover{
-        background:#334155;
+        background:#222;
     }
 
     td{
         color:#f1f5f9;
+        font-size:14px;
     }
 
     .actions{
@@ -92,7 +107,7 @@
 
         <h1>Tabla de Cursos</h1>
 
-        <a href="#" class="btn btn-add">
+        <a href="{{ route('cursos.create') }}" class="btn btn-add">
             + Agregar Curso
         </a>
 
@@ -127,11 +142,11 @@
 
                     <td class="actions">
 
-                        <a href="#" class="btn btn-edit">
+                        <a href="{{ route('cursos.edit', $curso->id) }}" class="btn btn-edit">
                             Editar
                         </a>
 
-                        <form action="#" method="POST">
+                        <form action="{{ route('cursos.destroy', $curso->id) }}" method="POST">
 
                             @csrf
                             @method('DELETE')
